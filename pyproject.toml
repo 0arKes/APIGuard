@@ -1,0 +1,19 @@
+[project]
+name = "apiguard"
+version = "0.1.0"
+description = "System for monitoring the availability, performance, and status of APIs and services, identifying failures and outages."
+authors = [
+    {name = "0arKes",email = "proarKes@gmail.com"}
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.14,<4"
+dependencies = [
+    "django (>=6.1,<7.0)",
+    "django-environ (>=0.14.0,<0.15.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
