@@ -16,6 +16,9 @@ class API(models.Model):
     timeout_count = models.PositiveSmallIntegerField(null=False, default=0)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="apis")
 
+    def __str__(self) -> str:
+        return self.nickname
+
 
 class History(models.Model):
     api_response = models.CharField(max_length=30, null=False, blank=False)
