@@ -67,3 +67,25 @@ class CreateUserForm(forms.Form):
             raise ValidationError("Senhas não coincidem")
 
         return data
+
+
+class LoginUserForm(forms.Form):
+    username = forms.CharField(
+        max_length=150,
+        widget=forms.TextInput(
+            attrs={
+                "autocomplete": "username",
+                "placeholder": "Digite seu username",
+            }
+        ),
+    )
+
+    password = forms.CharField(
+        max_length=24,
+        widget=forms.PasswordInput(
+            attrs={
+                "autocomplete": "current-password",
+                "placeholder": "Digite sua senha",
+            }
+        ),
+    )
