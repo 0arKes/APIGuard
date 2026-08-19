@@ -19,6 +19,6 @@ def register_user(request):
                 password=form["password"],
             )
 
-        return render(request, "monitoring/login.html", {"form": form_user})
+        return render(request, "monitoring/register.html", {"form": form_user})
 
-    return render(request, "monitoring/login.html", {"form": form_user})
+    return render(request, "monitoring/register.html", {"form": form_user})
