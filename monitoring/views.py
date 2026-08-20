@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from .forms.login_form import CreateUserForm, LoginUserForm
 
@@ -19,6 +19,7 @@ def register_user(request):
                 email=form["email"],
                 password=form["password"],
             )
+            return redirect("login")
 
         return render(request, "monitoring/register.html", {"form": form_user})
 
@@ -42,6 +43,5 @@ def login_user(request):
 
             else:
                 login(request, user)
-                print("flag")
 
     return render(request, "monitoring/login.html", {"form": login_form})
