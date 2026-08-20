@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
 from .forms.login_form import CreateUserForm, LoginUserForm
+from .models import API
 
 
 # Create your views here.
@@ -45,3 +47,9 @@ def login_user(request):
                 login(request, user)
 
     return render(request, "monitoring/login.html", {"form": login_form})
+
+
+@login_required(login_url="login")
+def dashboard(request):
+    user_apis = API.objects.filter(owner=request.user)
+    return render(request, "monitoring/dashboard.html", {"my_apis": user_apis})

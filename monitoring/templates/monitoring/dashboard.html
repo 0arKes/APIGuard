@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>TEST</h1>
+    {% for apis in my_apis %}
+    <h1>{{ apis.nickname }}</h1>
+    <p>{{ apis.api_status }}</p>
+    {% endfor %}
+</body>
+</html>
