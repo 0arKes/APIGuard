@@ -1,13 +1,14 @@
+{% extends "monitoring/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "monitoring/login.css" %}">
-    <title>Login</title>
-</head>
-<body>
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "monitoring/styles/login.css" %}">
+{% endblock styles %}
+
+{% block title %}Login{% endblock title %}
+
+{% block main %}
     <main>
         <form method="post">
             <h1>Login</h1>
@@ -16,5 +17,4 @@
             <button type="submit">Logar</button>
         </form>
     </main>
-</body>
-</html>
+{% endblock main %}

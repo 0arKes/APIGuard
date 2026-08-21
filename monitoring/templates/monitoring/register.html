@@ -1,20 +1,20 @@
+{% extends "monitoring/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href='{% static "monitoring/register.css" %}'>
-    <title>Criar Conta</title>
-</head>
-<body>
+
+
+{% block styles %}
+    <link rel="stylesheet" href='{% static "monitoring/styles/register.css" %}'>
+{% endblock styles %}
+
+{% block title %}Registrar-se{% endblock title %}
+
+{% block main %}
     <main>
-        <form action="" method="post">
+        <form method="post">
             <h1>Crie sua conta</h1>
             {% csrf_token %}
             {{form}}
             <button type="submit">Criar</button>
         </form>
     </main>
-</body>
-</html>
+{% endblock main %}
