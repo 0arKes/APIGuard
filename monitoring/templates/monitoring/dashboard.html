@@ -1,15 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "monitoring/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static "monitoring/menu.css" %}">
+{% endblock styles %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block header %}
+{% include "monitoring/menu.html" %}
+{% endblock header %}
+
+
+{% block main %}
+    <main>
     <h1>TEST</h1>
-    {% for apis in my_apis %}
-    <h1>{{ apis.nickname }}</h1>
-    <p>{{ apis.api_status }}</p>
-    {% endfor %}
-</body>
-</html>
+        {% for apis in my_apis %}
+            <h2>{{ apis.nickname }}</h2>
+            <p>{{ apis.api_status }}</p>
+        {% endfor %}
+        <h1>teste</h1>
+    </main>
+{% endblock main %}
+    
+
+{% block javascript %}
+<script defer src="{% static "monitoring/app.js" %}"></script>
+{% endblock javascript %}
