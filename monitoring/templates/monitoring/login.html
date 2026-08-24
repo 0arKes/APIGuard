@@ -3,18 +3,20 @@
 
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static "monitoring/styles/login.css" %}">
+    <link rel="stylesheet" href="{% static "monitoring/styles/form.css" %}">
 {% endblock styles %}
 
 {% block title %}Login{% endblock title %}
 
 {% block main %}
     <main>
-        <form method="post">
-            <h1>Login</h1>
-            {% csrf_token %}
-            {{ form }}
-            <button type="submit">Logar</button>
-        </form>
+        <section class="form-section">
+            <form method="post">
+                <h1 id="form-title">Login</h1>
+                {% csrf_token %}
+                {{ form }}
+                <button id="submit" type="submit">Logar</button>
+            </form>
+        </section>
     </main>
 {% endblock main %}

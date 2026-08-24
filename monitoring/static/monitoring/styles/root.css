@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+:root {
+    --primary: #4318ff;
+    --primary-dark: #3212c7;
+
+    --background: #f4f4f4;
+    --text: #171A2B;
+    --border: #dcdcdc;
+    --white: #ffffff;
+
+    --background-body: #F6F7FB;
+    --card-background: #FFFFFF;
+    --card-border: #E7E9F2;
+    
+    --online: #16A34A;
+    --online-bg: #ECFDF3;
+
+    --offline: #DC2626;
+    --offline-bg: #FEF2F2;
+
+    --unknown: #D97706;
+    --unknown-bg: #FFFBEB;
+}

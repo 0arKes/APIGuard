@@ -1,20 +1,4 @@
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-:root {
-    --primary: #4318ff;
-    --primary-dark: #3212c7;
-    --background: #f4f4f4;
-    --text: #222222;
-    --border: #dcdcdc;
-    --white: #ffffff;
-}
-
-body {
+.form-section {
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -45,18 +29,18 @@ form {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-h1 {
+#form-title {
     margin-bottom: 10px;
 
     color: var(--text);
 
-    font-size: 28px;
+    font-size: 36px;
     text-align: center;
 }
 
 label {
     color: var(--text);
-    font-size: 14px;
+    font-size: 22px;
     font-weight: 600;
 }
 
@@ -78,7 +62,7 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(67, 24, 255, 0.12);
 }
 
-button {
+button#submit {
     width: 100%;
 
     padding: 13px;
@@ -99,11 +83,11 @@ button {
         transform 0.2s ease;
 }
 
-button:hover {
+button#submit:hover {
     background-color: var(--primary-dark);
 }
 
-button:active {
+button#submit:active {
     transform: scale(0.98);
 }
 

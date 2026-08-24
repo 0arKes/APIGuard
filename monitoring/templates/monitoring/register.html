@@ -3,18 +3,20 @@
 
 
 {% block styles %}
-    <link rel="stylesheet" href='{% static "monitoring/styles/register.css" %}'>
+    <link rel="stylesheet" href='{% static "monitoring/styles/form.css" %}'>
 {% endblock styles %}
 
 {% block title %}Registrar-se{% endblock title %}
 
 {% block main %}
     <main>
-        <form method="post">
-            <h1>Crie sua conta</h1>
-            {% csrf_token %}
-            {{form}}
-            <button type="submit">Criar</button>
-        </form>
+        <section class="form-section">
+            <form method="post">
+                <h1 id="form-title">Crie sua conta</h1>
+                {% csrf_token %}
+                {{form}}
+                <button id="submit" type="submit">Criar</button>
+            </form>
+        </section>
     </main>
 {% endblock main %}
