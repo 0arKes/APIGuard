@@ -1,0 +1,10 @@
+{% extends "monitoring/base.html" %}
+
+{% block title %}Crie sua API{% endblock title %}
+{% block main %}
+    <form method="post">
+        {% csrf_token %}
+        {{ api_form }}
+        <button type="submit">Criar</button>
+    </form>
+{% endblock main %}

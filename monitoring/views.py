@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
+from .forms.create_api_form import CreateAPIForm
 from .forms.login_form import CreateUserForm, LoginUserForm
 from .models import API
 
@@ -53,3 +54,20 @@ def login_user(request):
 def dashboard(request):
     user_apis = API.objects.filter(owner=request.user)
     return render(request, "monitoring/dashboard.html", {"my_apis": user_apis})
+
+
+@login_required(login_url="login")
+def create_api(request):
+    api_form = CreateAPIForm()
+
+    if request.method == "POST":
+        api_form = CreateAPIForm(request.POST)
+
+        if api_form.is_valid():
+            api = api_form.save(commit=False)
+            api.owner = request.user
+            api.check_interval *= 60
+
+            api.save()
+
+    return render(request, "monitoring/create_api.html", {"api_form": api_form})
