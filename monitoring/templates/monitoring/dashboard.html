@@ -3,6 +3,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static "monitoring/styles/menu.css" %}">
+<link rel="stylesheet" href="{% static "monitoring/styles/dashboard.css" %}">
 {% endblock styles %}
 
 {% block title %}Dashboard{% endblock title %}
@@ -14,15 +15,44 @@
 
 {% block main %}
     <main>
-    <h1>TEST</h1>
-        {% for apis in my_apis %}
-            <h2>{{ apis.nickname }}</h2>
-            <p>{{ apis.api_status }}</p>
-        {% endfor %}
-        <h1>teste</h1>
+        <h1 class="title">Bem-Vindo!</h1>
+        <section class="hero">
+            <h2 id="title-hero">Suas APIs estão aqui:</h2>
+            {% if my_apis %}
+                {% for api in my_apis %}
+                        {% if api.api_status == "ONLINE" %}
+                        <a href="#">
+                        <div class="card card-online">
+                            <h2>API: {{ api.nickname }}</h2>
+                            <h3 class="online"><span class="status">Status:</span> <strong>{{ api.api_status }}</strong></h3>
+                            <p class="fa-solid fa-wifi"></p>
+                        </div>
+                        </a>
+                        {% elif api.api_status == "OFFLINE" %}
+                        <a href="#">
+                        <div class="card card-offline">
+                            <h2>API: {{ api.nickname }}</h2>
+                            <h3 class="offline"><span class="status">Status:</span> <strong>{{ api.api_status }}</strong></h3>
+                            <p class="fa-solid fa-power-off"></p>
+                        </div>
+                        </a>
+                        {% else %}
+                        <a href="#">
+                        <div class="card card-unknown">
+                            <h2>API: {{ api.nickname }}</h2>
+                            <h3 class="unknown"><span class="status">Status:</span> <strong>{{ api.api_status }}</strong></h3>
+                            <p class="fa-regular fa-circle-question"></p>
+                        </div>
+                        </a>
+                        {% endif %}
+                {% endfor %}
+            {% else %}
+            <h2 id="without-results">Ops! Você ainda não tem nenhuma API. <a href="#">Crie aqui</a></h2>
+            {% endif %}
+        </section>
     </main>
 {% endblock main %}
-    
+
 
 {% block javascript %}
 <script defer src="{% static "monitoring/javascript/app.js" %}"></script>

@@ -130,7 +130,7 @@
 }
 
 .nav.active .nav-list{
-    clip-path: circle(1500px at -10% -15%);
+    clip-path: circle(1800px at -10% -15%);
 
     pointer-events: all;
 }
