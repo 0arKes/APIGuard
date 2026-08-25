@@ -1,0 +1,17 @@
+.status-history{
+    display: flex;
+    height: 350px;
+
+    margin: 95px 0 0 65px;
+
+    background-color: var(--card-background);
+}
+
+.card{
+    height: 80px;
+    width: 80px;
+
+    gap: 16px;
+
+    background-color: aquamarine;
+}

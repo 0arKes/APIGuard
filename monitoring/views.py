@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms.create_api_form import CreateAPIForm
 from .forms.login_form import CreateUserForm, LoginUserForm
@@ -71,3 +71,11 @@ def create_api(request):
             api.save()
 
     return render(request, "monitoring/create_api.html", {"api_form": api_form})
+
+
+@login_required(login_url="login")
+def detail_api(request, id):
+    api = get_object_or_404(
+        API.objects.prefetch_related("histories"), id=id, owner=request.user
+    )
+    return render(request, "monitoring/read_api.html", {"api": api})

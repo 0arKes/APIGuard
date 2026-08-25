@@ -1,0 +1,33 @@
+{% extends "monitoring/base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static "monitoring/styles/menu.css" %}">
+<link rel="stylesheet" href="{% static "monitoring/styles/read_api.css" %}">
+{% endblock styles %}
+
+
+{% block title %}API: {{ api.nickname }}{% endblock title %}
+
+{% block header %}
+{% include "monitoring/components/menu.html" %}
+{% endblock header %}
+
+{% block main %}
+<main>
+    <h1>TEST</h1>
+    <h2>{{ api }}</h2>
+    <section class="status-history">
+        {% for history in api.histories.all %}
+            <div class="card">
+                <h2>{{ history.date|date:"H:i" }}</h2>
+                <span class="status-code">Code: {{ history.status_code }}</span>
+            </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock main %}
+
+{% block javascript %}
+<script src="{% static "monitoring/javascript/app.js" %}"></script>
+{% endblock javascript %}
