@@ -78,4 +78,4 @@ def detail_api(request, id):
     api = get_object_or_404(
         API.objects.prefetch_related("histories"), id=id, owner=request.user
     )
-    return render(request, "monitoring/read_api.html", {"api": api})
+    return render(request, "monitoring/detail_api.html", {"api": api})
