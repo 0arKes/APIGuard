@@ -3,7 +3,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static "monitoring/styles/menu.css" %}">
-<link rel="stylesheet" href="{% static "monitoring/styles/read_api.css" %}">
+<link rel="stylesheet" href="{% static "monitoring/styles/detail_api.css" %}">
 {% endblock styles %}
 
 
@@ -15,19 +15,108 @@
 
 {% block main %}
 <main>
-    <h1>TEST</h1>
-    <h2>{{ api }}</h2>
-    <section class="status-history">
-        {% for history in api.histories.all %}
-            <div class="card">
-                <h2>{{ history.date|date:"H:i" }}</h2>
-                <span class="status-code">Code: {{ history.status_code }}</span>
+    <section class="api-status">
+
+        <section class="api-header">
+            <div>
+                <h1>{{ api.nickname }}</h1>
+                <p>{{ api.url }}</p>
             </div>
-        {% endfor %}
+            <div class="api-status-view">
+                {% if api.api_status == "ONLINE" %}
+                    <span class="indicator i-online"></span>
+                {% elif api.api_status == "OFFLINE" %}
+                    <span class="indicator i-offline"></span>
+                {% else %}
+                    <span class="indicator i-unknown"></span>
+                {% endif %}
+                <span id="api-status">{{ api.api_status }}</span>
+            </div>
+        </section>
+
+        {% comment %} content header {% endcomment %}
+
+        <section class="api-content">
+            <div class="content-header">
+                <h2>Histórico</h2>
+                <div class="legend">
+                    <span><i class="square i-online"></i> Good </span>
+                    <span><i class="square i-offline"></i> Bad </span>
+                    <span><i class="square i-unknown"></i> Unknown </span>
+                </div>
+            </div>
+
+            {% comment %} content {% endcomment %}
+
+            <div class="status-grid">
+                {% for history in histories %}
+                    <div class="square-history {% if history.status_code >= 200 and history.status_code < 400 %}i-online{% elif history.status_code >= 400 %}i-offline{% else %}i-unknown
+                    {% endif %}" title="{{ history.date }}" 
+        data-date="{{ history.date|date:'d/m/Y' }}"
+        data-time="{{ history.date|date:'H:i' }}"
+        data-status-code="{{ history.status_code|default:'N/A' }}"
+        data-response-time="{{ history.response_time|default:'N/A' }}"
+        data-api-response="{{ history.api_response|default:'N/A' }}"></div>
+
+                    {% empty %}
+                    <p class="empty-history">
+                        Nenhum histórico disponível
+                    </p>
+                {% endfor %}
+            </div>
+
+            {% comment %} Navigation {% endcomment %}
+
+            <nav class="navigation">
+                {% if histories.has_previous %}
+                    <a href="?page={{ histories.previous_page_number }}">←</a>
+                {% endif %}
+
+                {% for page_number in histories.paginator.page_range %}
+                    {% if page_number == histories.number %}
+                        <span class="active">{{ page_number }}</span>
+
+                    {% else %}
+                    <a href="?page={{ page_number }}">{{ page_number }}</a>
+
+                    {% endif %}
+                
+                {% endfor %}
+
+                {% if histories.has_next %}
+                    <a href="?page={{ histories.next_page_number }}">→</a>
+                {% endif %}
+            </nav>
+
+            {% comment %} history information {% endcomment %}
+
+            <aside class="history-information" style="display: none;">
+                <div class="history-time">
+                    <strong><span id="history-time"></span></strong>
+                    <span id="history-date"></span>
+                </div>
+                <div class="history-response">
+                    <span class="sub-title-history">Response code:</span>
+                    <strong><span id="history-status-code"></span></strong>
+                </div>
+                <div class="history-response">
+                    <span class="sub-title-history">Response: </span>
+                    <strong><span id="history-api-response"></span></strong>
+                </div>
+                <div class="history-response">
+                    <span class="sub-title-history">Response time: </span>
+                    <strong><span id="history-response-time"></span></strong>
+                </div>
+            </aside>
+
+        </section>
+
+      
     </section>
 </main>
 {% endblock main %}
 
 {% block javascript %}
 <script src="{% static "monitoring/javascript/app.js" %}"></script>
+<script src="{% static "monitoring/javascript/data-history.js" %}"></script>
 {% endblock javascript %}

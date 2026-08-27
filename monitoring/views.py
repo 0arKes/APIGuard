@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms.create_api_form import CreateAPIForm
@@ -75,7 +76,14 @@ def create_api(request):
 
 @login_required(login_url="login")
 def detail_api(request, id):
-    api = get_object_or_404(
-        API.objects.prefetch_related("histories"), id=id, owner=request.user
+    api = get_object_or_404(API, id=id, owner=request.user)
+
+    histories = api.histories.order_by("-date")
+
+    paginator = Paginator(histories, 100)
+
+    page_history = paginator.get_page(request.GET.get("page"))
+
+    return render(
+        request, "monitoring/detail_api.html", {"api": api, "histories": page_history}
     )
-    return render(request, "monitoring/detail_api.html", {"api": api})
