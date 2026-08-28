@@ -135,3 +135,6 @@ MAILERS = {
         "BACKEND": "django.core.mail.backends.console.EmailBackend",
     },
 }
+
+# Redirect main view
+LOGIN_REDIRECT_URL = "monitoring:dashboard"

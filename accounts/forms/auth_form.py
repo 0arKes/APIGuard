@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -69,7 +70,7 @@ class CreateUserForm(forms.Form):
         return data
 
 
-class LoginUserForm(forms.Form):
+class LoginUserForm(AuthenticationForm):
     username = forms.CharField(
         max_length=150,
         widget=forms.TextInput(
