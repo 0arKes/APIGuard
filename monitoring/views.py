@@ -1,6 +1,7 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views import View
 
 from .forms.create_api_form import CreateAPIForm
 from .models import API
@@ -8,17 +9,18 @@ from .models import API
 # Create your views here.
 
 
-@login_required(login_url="accounts:login")
-def dashboard(request):
-    user_apis = API.objects.filter(owner=request.user)
-    return render(request, "monitoring/dashboard.html", {"my_apis": user_apis})
+class Dashboard(LoginRequiredMixin, View):
+    def get(self, request):
+        user_apis = API.objects.filter(owner=request.user)
+        return render(request, "monitoring/dashboard.html", {"my_apis": user_apis})
 
 
-@login_required(login_url="accounts:login")
-def create_api(request):
-    api_form = CreateAPIForm()
+class CreateAPI(LoginRequiredMixin, View):
+    def get(self, request):
+        api_form = CreateAPIForm()
+        return render(request, "monitoring/create_api.html", {"api_form": api_form})
 
-    if request.method == "POST":
+    def post(self, request):
         api_form = CreateAPIForm(request.POST)
 
         if api_form.is_valid():
@@ -28,19 +30,23 @@ def create_api(request):
 
             api.save()
 
-    return render(request, "monitoring/create_api.html", {"api_form": api_form})
+            return redirect("monitoring:detail_api", id=api.id)
+
+        return render(request, "monitoring/create_api.html", {"api_form": api_form})
 
 
-@login_required(login_url="accounts:login")
-def detail_api(request, id):
-    api = get_object_or_404(API, id=id, owner=request.user)
+class DetailAPI(LoginRequiredMixin, View):
+    def get(self, request, id):
+        api = get_object_or_404(API, id=id, owner=request.user)
 
-    histories = api.histories.order_by("-date")
+        histories = api.histories.order_by("-date")
 
-    paginator = Paginator(histories, 100)
+        paginator = Paginator(histories, 100)
 
-    page_history = paginator.get_page(request.GET.get("page"))
+        page_history = paginator.get_page(request.GET.get("page"))
 
-    return render(
-        request, "monitoring/detail_api.html", {"api": api, "histories": page_history}
-    )
+        return render(
+            request,
+            "monitoring/detail_api.html",
+            {"api": api, "histories": page_history},
+        )
