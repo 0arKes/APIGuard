@@ -138,3 +138,6 @@ MAILERS = {
 
 # Redirect main view
 LOGIN_REDIRECT_URL = "monitoring:dashboard"
+
+# login required url
+LOGIN_URL = "accounts:login"

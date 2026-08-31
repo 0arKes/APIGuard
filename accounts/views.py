@@ -1,3 +1,5 @@
+from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.views import View
 
@@ -25,3 +27,10 @@ class RegisterUser(View):
             return redirect("accounts:login")
 
         return render(request, "accounts/register.html", {"form": form_user})
+
+
+class Logout(LoginRequiredMixin, View):
+    def get(self, request):
+        logout(request)
+
+        return redirect("accounts:login")

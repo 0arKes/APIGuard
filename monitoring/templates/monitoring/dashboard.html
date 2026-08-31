@@ -21,7 +21,7 @@
             {% if my_apis %}
                 {% for api in my_apis %}
                         {% if api.api_status == "ONLINE" %}
-                        <a href="#">
+                        <a href="{% url "monitoring:detail_api" id=api.id %}">
                         <div class="card card-online">
                             <h2>API: {{ api.nickname }}</h2>
                             <h3 class="online"><span class="status">Status:</span> <strong>{{ api.api_status }}</strong></h3>
@@ -29,7 +29,7 @@
                         </div>
                         </a>
                         {% elif api.api_status == "OFFLINE" %}
-                        <a href="#">
+                        <a href="{% url "monitoring:detail_api" id=api.id %}">
                         <div class="card card-offline">
                             <h2>API: {{ api.nickname }}</h2>
                             <h3 class="offline"><span class="status">Status:</span> <strong>{{ api.api_status }}</strong></h3>
@@ -37,7 +37,7 @@
                         </div>
                         </a>
                         {% else %}
-                        <a href="#">
+                        <a href="{% url "monitoring:detail_api" id=api.id %}">
                         <div class="card card-unknown">
                             <h2>API: {{ api.nickname }}</h2>
                             <h3 class="unknown"><span class="status">Status:</span> <strong>{{ api.api_status }}</strong></h3>

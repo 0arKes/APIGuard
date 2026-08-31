@@ -16,6 +16,7 @@
                 {% csrf_token %}
                 {{ form }}
                 <button id="submit" type="submit">Logar</button>
+                <p>Não possui conta ? <a href="{% url "accounts:register" %}">Click Aqui</a></p>
             </form>
         </section>
     </main>
