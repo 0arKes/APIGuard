@@ -3,7 +3,7 @@ from django import forms
 from monitoring.models import API
 
 
-class CreateAPIForm(forms.ModelForm):
+class APIForm(forms.ModelForm):
     class Meta:
         model = API
         fields = ["nickname", "url", "check_interval"]

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static "monitoring/styles/menu.css" %}">
+<link rel="stylesheet" href="{% static "styles/form.css" %}">
+{% endblock styles %}
+
+{% block title %}Editar {{ api.nickname }}{% endblock title %}
+
+{% block header %}
+{% include "monitoring/components/menu.html" %}
+{% endblock header %}
+
+
+{% block main %}
+    <main>
+        <section class="form-section">
+            <form method="post">
+                {% csrf_token %}
+                <h1 id="form-title">Editando: {{ api.nickname }}</h1>
+                {{ edit_form }}
+                <button id="submit" type="submit">Criar</button>
+            </form>
+        </section>
+    </main>
+{% endblock main %}
+
+{% block javascript %}
+<script defer src="{% static "monitoring/javascript/app.js" %}"></script>
+{% endblock javascript %}
