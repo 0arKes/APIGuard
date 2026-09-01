@@ -4,6 +4,7 @@
 {% block styles %}
 <link rel="stylesheet" href="{% static "monitoring/styles/menu.css" %}">
 <link rel="stylesheet" href="{% static "monitoring/styles/detail_api.css" %}">
+<link rel="stylesheet" href="{% static "monitoring/styles/edit.css" %}">
 {% endblock styles %}
 
 
@@ -109,10 +110,14 @@
                 </div>
             </aside>
 
+            {% include "monitoring/components/edit_link.html" %}
+
         </section>
 
-      
     </section>
+
+    
+
 </main>
 {% endblock main %}
 
