@@ -143,5 +143,5 @@ LOGIN_REDIRECT_URL = "monitoring:dashboard"
 LOGIN_URL = "accounts:login"
 
 
-# redis
+# celery config
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")

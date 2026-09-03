@@ -20,7 +20,7 @@
             <h2 id="title-hero">Suas APIs estão aqui:</h2>
             {% if my_apis %}
                 {% for api in my_apis %}
-                        {% if api.api_status == "ONLINE" %}
+                        {% if api.api_status == "UP" %}
                         <a href="{% url "monitoring:detail_api" id=api.id %}">
                         <div class="card card-online">
                             <h2>API: {{ api.nickname }}</h2>
