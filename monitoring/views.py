@@ -26,7 +26,6 @@ class CreateAPI(LoginRequiredMixin, View):
         if api_form.is_valid():
             api = api_form.save(commit=False)
             api.owner = request.user
-            api.check_interval *= 60
 
             api.save()
 
@@ -55,7 +54,6 @@ class DetailAPI(LoginRequiredMixin, View):
 class EditAPI(LoginRequiredMixin, View):
     def get(self, request, id):
         api = get_object_or_404(API, id=id, owner=request.user)
-        api.check_interval //= 60
         edit_form = APIForm(instance=api)
 
         return render(
@@ -68,7 +66,6 @@ class EditAPI(LoginRequiredMixin, View):
 
         if edit_form.is_valid():
             api = edit_form.save(commit=False)
-            api.check_interval *= 60
             api.save()
 
             return redirect("monitoring:detail_api", id=api.id)

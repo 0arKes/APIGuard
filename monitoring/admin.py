@@ -11,7 +11,6 @@ class APIAdmin(admin.ModelAdmin):
         "id",
         "nickname",
         "url",
-        "check_interval",
         "api_status",
         "timeout_count",
         "owner",

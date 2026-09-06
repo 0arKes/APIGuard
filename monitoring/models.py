@@ -9,7 +9,6 @@ from monitoring.choices import APIStatus
 class API(models.Model):
     nickname = models.CharField(max_length=60, null=False, blank=False)
     url = models.URLField(null=False, blank=False)
-    check_interval = models.PositiveSmallIntegerField(null=False, default=300)
     api_status = models.CharField(
         max_length=7, choices=APIStatus, default=APIStatus.UNKNOWN
     )
