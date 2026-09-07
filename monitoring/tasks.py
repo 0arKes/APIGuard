@@ -3,6 +3,7 @@ from celery import shared_task
 from django.db import transaction
 
 from monitoring.choices import APIStatus
+from monitoring.services.api_verification import APIResult
 
 from .models import API, History
 
@@ -11,14 +12,13 @@ from .models import API, History
 def verify_api(api_id):
     api = API.objects.get(id=api_id)
 
-    response_dict = {
-        "api_response": None,
-        "status_code": None,
-        "response_time": "",
-        "api": api,
-        "timeout": api.timeout_count,
-        "api_status": api.api_status,
-    }
+    result = APIResult(
+        api_response=None,
+        status_code=None,
+        response_time=None,
+        timeout_count=api.timeout_count,
+        api_status=APIStatus(api.api_status),
+    )
 
     try:
         response = requests.get(api.url, timeout=10)
@@ -29,36 +29,34 @@ def verify_api(api_id):
             else APIStatus.DOWN
         )
 
-        response_dict.update(
-            {
-                "api_response": response.reason,
-                "status_code": response.status_code,
-                "response_time": response_time,
-                "api_status": response_api_status,
-            }
-        )
+        result.api_response = response.reason
+        result.status_code = response.status_code
+        result.response_time = response_time
+        result.api_status = response_api_status
 
     except requests.exceptions.Timeout:
-        response_dict.update({"timeout": response_dict["timeout"] + 1})
+        result.api_response = "Timeout"
+        result.timeout_count += 1
 
-        if response_dict["timeout"] >= 3:
-            response_dict["api_status"] = APIStatus.DOWN
+        if result.timeout_count >= 3:
+            result.api_status = APIStatus.DOWN
 
     except requests.exceptions.ConnectionError:
-        response_dict["api_status"] = APIStatus.DOWN
+        result.api_response = "Connection Error"
+        result.api_status = APIStatus.DOWN
 
-    if response_dict["api_status"] == APIStatus.UP:
-        response_dict["timeout"] = 0
+    if result.api_status == APIStatus.UP:
+        result.timeout_count = 0
 
     with transaction.atomic():
         History.objects.create(
-            api_response=response_dict["api_response"],
-            status_code=response_dict["status_code"],
-            response_time=response_dict["response_time"],
-            api=response_dict["api"],
+            api_response=result.api_response,
+            status_code=result.status_code,
+            response_time=result.response_time,
+            api=api,
         )
-        api.api_status = response_dict["api_status"]
-        api.timeout_count = response_dict["timeout"]
+        api.api_status = result.api_status
+        api.timeout_count = result.timeout_count
 
         api.save()
 
