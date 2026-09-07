@@ -61,3 +61,11 @@ def verify_api(api_id):
         api.timeout_count = response_dict["timeout"]
 
         api.save()
+
+
+@shared_task
+def check_api():
+    apis = API.objects.all()
+
+    for api in apis:
+        verify_api.delay(api.id)

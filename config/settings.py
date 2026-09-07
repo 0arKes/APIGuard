@@ -145,3 +145,10 @@ LOGIN_URL = "accounts:login"
 
 # celery config
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")
+
+CELERY_BEAT_SCHEDULE = {
+    "check-apis": {
+        "task": "monitoring.tasks.check_api",
+        "schedule": 30.0,
+    },
+}
