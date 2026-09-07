@@ -1,9 +1,9 @@
-.edit{
+.button{
     padding: 15px;
 
     position: fixed;
     right: 25px;
-    bottom: 25px;
+    bottom: 85px;
 
     border: 1px solid var(--border);
 
@@ -15,11 +15,23 @@
     
 }
 
-.edit p {
+.button p {
     color: var(--primary);
 }
 
-.edit:hover{
+.button:hover{
     transform: scale(1.1);
     border: 1px solid var(--primary);
+}
+
+.del{
+    bottom: 25px;
+}
+
+.del:hover{
+    border: 1px solid #dc2626;
+}
+
+.del:hover p {
+    color: #dc2626;
 }

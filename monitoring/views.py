@@ -73,3 +73,11 @@ class EditAPI(LoginRequiredMixin, View):
         return render(
             request, "monitoring/edit_api.html", {"edit_form": edit_form, "api": api}
         )
+
+
+class DeleteAPI(LoginRequiredMixin, View):
+    def get(self, request, id):
+        api = get_object_or_404(API, id=id, owner=request.user)
+        api.delete()
+
+        return redirect("monitoring:dashboard")
