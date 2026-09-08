@@ -148,7 +148,7 @@ CELERY_BROKER_URL = env("CELERY_BROKER_URL")
 
 CELERY_BEAT_SCHEDULE = {
     "check-apis": {
-        "task": "monitoring.tasks.check_api",
+        "task": "monitoring.tasks.check_apis",
         "schedule": 30.0,
     },
 }
