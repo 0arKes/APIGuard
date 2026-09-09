@@ -3,6 +3,8 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
+from monitoring.services.api_cache_services import get_user_apis, invalidate_user_apis
+
 from .forms.api_form import APIForm
 from .models import API
 
@@ -11,7 +13,7 @@ from .models import API
 
 class Dashboard(LoginRequiredMixin, View):
     def get(self, request):
-        user_apis = API.objects.filter(owner=request.user)
+        user_apis = get_user_apis(user_id=request.user.id)
         return render(request, "monitoring/dashboard.html", {"my_apis": user_apis})
 
 
@@ -28,6 +30,7 @@ class CreateAPI(LoginRequiredMixin, View):
             api.owner = request.user
 
             api.save()
+            invalidate_user_apis(user_id=request.user.id)
 
             return redirect("monitoring:detail_api", id=api.id)
 
@@ -66,7 +69,9 @@ class EditAPI(LoginRequiredMixin, View):
 
         if edit_form.is_valid():
             api = edit_form.save(commit=False)
+
             api.save()
+            invalidate_user_apis(user_id=request.user.id)
 
             return redirect("monitoring:detail_api", id=api.id)
 
@@ -78,6 +83,8 @@ class EditAPI(LoginRequiredMixin, View):
 class DeleteAPI(LoginRequiredMixin, View):
     def get(self, request, id):
         api = get_object_or_404(API, id=id, owner=request.user)
+
         api.delete()
+        invalidate_user_apis(user_id=request.user.id)
 
         return redirect("monitoring:dashboard")
