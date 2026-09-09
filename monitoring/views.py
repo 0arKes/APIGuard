@@ -25,6 +25,9 @@ class CreateAPI(LoginRequiredMixin, View):
     def post(self, request):
         api_form = APIForm(request.POST)
 
+        if API.objects.filter(owner=request.user).count() >= 4:
+            api_form.add_error(None, "Você atingiu o limite máximo de 5 APIs.")
+
         if api_form.is_valid():
             api = api_form.save(commit=False)
             api.owner = request.user
