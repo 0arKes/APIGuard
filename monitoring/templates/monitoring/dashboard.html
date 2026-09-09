@@ -47,7 +47,7 @@
                         {% endif %}
                 {% endfor %}
             {% else %}
-            <h2 id="without-results">Ops! Você ainda não tem nenhuma API. <a href="#">Crie aqui</a></h2>
+            <h2 id="without-results">Ops! Você ainda não tem nenhuma API. <a href="{% url "monitoring:create_api" %}">Crie aqui</a></h2>
             {% endif %}
         </section>
     </main>
