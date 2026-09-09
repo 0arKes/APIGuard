@@ -1,13 +1,11 @@
 body{
-    min-height: 100vh;
-
     background: var(--background-body);
 }
 
 .title{
     margin: 90px 0 5px 22px;
 
-    font-size: 36px;
+    font-size: clamp(2rem, 3vw, 3rem);
     font-weight: 600;
 }
 
@@ -41,7 +39,7 @@ body{
 .card h2 {
     color: var(--text);
 
-    font-size: 26px;
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
     font-weight: 800;
 }
 
@@ -146,7 +144,7 @@ section.hero a{
     }
 
     .title{
-        font-size: 48px;
+        font-size: clamp(2.5rem, 3vw, 3rem);
     }
 
     .hero{

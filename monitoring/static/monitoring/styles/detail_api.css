@@ -15,7 +15,7 @@
 }
 
 .api-header h1{
-    font-size: 48px;
+    font-size: clamp(2rem, 4vw, 3rem);
 }
 
 .api-header p{
@@ -49,7 +49,7 @@
 }
 
 #api-status{
-    font-size: 16px;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
     font-weight: 800;
 }
 
@@ -89,7 +89,7 @@
 
     color: #777;
 
-    font-size: 12px;
+    font-size: clamp(0.7rem, 1vw, 0.75rem);
 }
 
 .square{
@@ -181,7 +181,7 @@
     justify-content: space-between;
     align-items: center;
 
-    font-size: 14px;
+    font-size: clamp(0.8rem, 1.1vw, 0.875rem);
 
     border-top: 1px solid var(--border);
 }

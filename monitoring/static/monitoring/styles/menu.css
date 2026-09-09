@@ -9,7 +9,7 @@
 
 .nav-list a{
     color: var(--text);
-    font-size: 18px;
+    font-size: clamp(1rem, 3vw, 2rem);
     font-weight: 600;
 
     padding: 16px;
