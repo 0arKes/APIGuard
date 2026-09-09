@@ -10,6 +10,9 @@ jobs:
 
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG: ${{ secrets.DEBUG }}
+      CELERY_BROKER_URL: "redis://localhost:6379/0"
+      REDIS_CACHE_URL: "redis://localhost:6379/1"
 
     steps:
       - name: Copiar repositório
