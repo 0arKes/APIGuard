@@ -15,6 +15,7 @@ jobs:
           - 6379:6379
 
     env:
+      DATABASE_URL: sqlite:///db.sqlite3
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       DEBUG: ${{ secrets.DEBUG }}
       CELERY_BROKER_URL: "redis://localhost:6379/0"
