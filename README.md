@@ -58,6 +58,13 @@ Durante o desenvolvimento, trabalhei com autenticação de usuários, regras de 
             <li><a href="#variaveis-de-ambiente">🔐 Variáveis de Ambiente</a></li>
         </ul>
     </li>
+    <li>
+        <a href="#identidade-visual">🪪 Identidade visual</a>
+        <ul>
+            <li><a href="#escolha-das-core">🎨 Escolha das Cores</a></li>
+            <li><a href="#mobile-first">📱 Mobile First</a></li>
+        </ul>
+    </li>
 </ul>
 
 ---
@@ -844,3 +851,131 @@ redis://redis:6379/1  →  Django Cache
 <p align="justify">
     Dentro da rede criada pelo Docker Compose, o host utilizado pelo Django não é <code>localhost</code>, mas sim <code>postgres</code>, que corresponde ao nome do serviço definido no <code>docker-compose.yml</code>.
 </p>
+
+<h2 id="identidade-visual">🪪 Identidade Visual</h2>
+
+<p align="justify">Durante o desenvolvimento do APIGuard, procurei criar uma interface simples e consistente, utilizando cores, espaçamentos e componentes reutilizáveis para manter o mesmo padrão visual nas diferentes páginas da aplicação.</p>
+
+<h3 id="escolha-das-core">🎨 Escolha das Cores</h3>
+
+<p align="justify">Defini uma cor primária em tons de azul e roxo para representar os principais elementos de interação da aplicação, como botões, links e elementos de navegação. A cor primária também possui uma variação mais escura para situações que exigem um segundo nível de destaque.</p>
+
+<p align="justify">Além da cor primária, defini cores específicas para representar os estados das APIs. Dessa forma, o usuário consegue identificar visualmente a situação de um serviço sem depender apenas do texto apresentado na interface.</p>
+
+<ul>
+    <li>🟣 <strong>Cor primária</strong> — utilizada nos principais elementos de interação da aplicação.</li>
+    <li>🟢 <strong>Verde</strong> — representa APIs disponíveis.</li>
+    <li>🔴 <strong>Vermelho</strong> — representa APIs indisponíveis.</li>
+    <li>🟠 <strong>Laranja</strong> — representa APIs com estado desconhecido.</li>
+    <li>⚪ <strong>Cores neutras</strong> — utilizadas em textos, bordas, fundos e elementos de suporte da interface.</li>
+</ul>
+
+<p align="justify">As cores foram centralizadas em variáveis CSS dentro do arquivo <code>root.css</code>. Isso permite reutilizar os mesmos valores em diferentes partes da aplicação e facilita a manutenção da identidade visual.</p>
+
+<h3>📁 Organização dos Arquivos CSS</h3>
+
+<p align="justify">Separei os arquivos CSS de acordo com a responsabilidade de cada conjunto de estilos. A ideia foi evitar um único arquivo contendo todas as regras da aplicação e, ao mesmo tempo, evitar a duplicação de estilos que podem ser utilizados em diferentes páginas.</p>
+
+<ul>
+    <li><strong>root.css</strong> — contém variáveis e configurações globais utilizadas por diferentes páginas.</li>
+    <li><strong>form.css</strong> — contém estilos reutilizáveis relacionados aos formulários da aplicação.</li>
+    <li><strong>buttons.css</strong> — concentra os estilos dos botões e elementos relacionados às ações.</li>
+    <li><strong>menu.css</strong> — contém os estilos relacionados à navegação e ao menu.</li>
+    <li><strong>dashboard.css</strong> — contém os estilos específicos do dashboard.</li>
+    <li><strong>detail_api.css</strong> — contém os estilos específicos da página de detalhes e histórico das APIs.</li>
+</ul>
+
+<p align="justify">Essa separação permite que estilos genéricos, como os definidos em <code>root.css</code> e <code>form.css</code>, sejam reutilizados por diferentes páginas, enquanto os arquivos específicos ficam responsáveis apenas pelas características visuais de suas respectivas áreas.</p>
+
+<h3 id="mobile-first">📱 Mobile First</h3>
+
+<p align="justify">Escolhi desenvolver a interface do APIGuard seguindo uma abordagem <strong>Mobile First</strong>. A estrutura inicial das páginas considera telas menores e, conforme a largura disponível aumenta, utilizo media queries para adaptar o layout.</p>
+
+<p align="justify">Essa abordagem permite que a aplicação seja construída considerando desde o início as limitações de espaço dos dispositivos móveis, em vez de criar primeiro uma versão desktop e posteriormente tentar adaptá-la para telas menores.</p>
+
+<h3>📐 Design Responsivo</h3>
+
+<p align="justify">Além de utilizar Mobile First, desenvolvi as páginas de forma responsiva para que os elementos se adaptem a diferentes tamanhos de tela. Para isso, utilizei recursos como <strong>Flexbox</strong>, <strong>CSS Grid</strong>, <code>media queries</code> e <code>clamp()</code>.</p>
+
+<p align="justify">O objetivo é manter as funcionalidades e informações principais acessíveis independentemente do dispositivo utilizado, reorganizando os elementos quando o espaço disponível é reduzido.</p>
+
+<h3>📊 Dashboard</h3>
+
+<p align="justify">O dashboard foi desenvolvido para apresentar as APIs cadastradas e permitir que o usuário identifique rapidamente o estado de cada serviço. Os indicadores visuais utilizam as cores definidas para os estados <code>UP</code>, <code>DOWN</code> e <code>UNKNOWN</code>.</p>
+
+<p align="center">
+    <img src=".github/src/img/dashboard_desktop.png" alt="Dashboard do APIGuard em desktop">
+</p>
+
+<p align="justify">Na versão desktop, o layout aproveita o espaço horizontal disponível para organizar a navegação e o conteúdo principal de forma mais ampla.</p>
+
+<p align="center">
+    <img src=".github/src/img/dashboard_mobile.png" alt="Dashboard do APIGuard em dispositivo móvel">
+</p>
+
+<p align="justify">Na versão mobile, os elementos são reorganizados para se adaptar à largura reduzida da tela, mantendo as informações principais acessíveis sem depender do layout utilizado no desktop.</p>
+
+<h3>📡 Detalhes da API</h3>
+
+<p align="justify">A página de detalhes apresenta as informações de uma API específica e seu estado atual de monitoramento.</p>
+
+<p align="center">
+    <img src=".github/src/img/detail_api_desktop.png" alt="Página de detalhes da API em desktop">
+</p>
+
+<p align="justify">O histórico das verificações também possui uma representação visual baseada em pequenos indicadores, permitindo observar rapidamente a sequência de resultados obtidos pelo monitoramento.</p>
+
+<p align="center">
+    <img src=".github/src/img/detail_api_hist_desktop.png" alt="Histórico da API em desktop">
+</p>
+
+<p align="justify">Na versão mobile, o histórico é reorganizado para continuar apresentando as informações de forma adequada mesmo com uma área horizontal menor.</p>
+
+<p align="center">
+    <img src=".github/src/img/detail_api_hist_mobile.png" alt="Histórico da API em dispositivo móvel">
+</p>
+
+<h3>⚪ Estado <code>UNKNOWN</code></h3>
+
+<p align="justify">Também existe uma representação específica para APIs que ainda não possuem uma verificação suficiente para determinar seu estado. Nesse caso, utilizo o estado <code>UNKNOWN</code> e a cor definida para esse estado nas variáveis globais.</p>
+
+<p align="center">
+    <img src=".github/src/img/detail_api_un.png" alt="API com estado desconhecido">
+</p>
+
+<h3>🔐 Login</h3>
+
+<p align="justify">A página de login utiliza a mesma identidade visual das demais áreas da aplicação. Os estilos relacionados aos formulários são mantidos no arquivo <code>form.css</code>, permitindo que a estrutura visual seja reutilizada em outras páginas que possuem formulários.</p>
+
+<p align="center">
+    <img src=".github/src/img/login_desktop.png" alt="Página de login do APIGuard em desktop">
+</p>
+
+<p align="justify">Na versão desktop, o formulário é apresentado de maneira centralizada, mantendo uma estrutura simples e dando destaque aos campos necessários para a autenticação.</p>
+
+<p align="center">
+    <img src=".github/src/img/login_mobile.png" alt="Página de login do APIGuard em dispositivo móvel">
+</p>
+
+<p align="justify">No mobile, o formulário se adapta à largura disponível da tela. Os elementos passam a utilizar o espaço horizontal de forma diferente, mantendo os campos e ações acessíveis para o usuário.</p>
+
+<h3>📝 Cadastro</h3>
+
+<p align="justify">A página de cadastro segue o mesmo padrão visual utilizado no login. Como os dois fluxos possuem elementos de formulário semelhantes, os estilos compartilhados permanecem no <code>form.css</code>.</p>
+
+<p align="center">
+    <img src=".github/src/img/register_mobile.png" alt="Página de cadastro do APIGuard em dispositivo móvel">
+</p>
+
+<p align="justify">No mobile, os campos são organizados verticalmente para aproveitar melhor o espaço disponível e facilitar o preenchimento.</p>
+
+<h3>☰ Menu Mobile</h3>
+
+<p align="justify">Também adaptei a navegação para dispositivos móveis. Em telas menores, o menu pode ser aberto quando necessário, permitindo que o conteúdo principal ocupe uma área maior da tela.</p>
+
+<p align="center">
+    <img src=".github/src/img/mobile_menu_active.png" alt="Menu mobile aberto do APIGuard">
+</p>
+
+<p align="justify">Dessa forma, a navegação mantém suas funcionalidades em diferentes tamanhos de tela sem precisar manter permanentemente a mesma estrutura utilizada no desktop.</p>
+
