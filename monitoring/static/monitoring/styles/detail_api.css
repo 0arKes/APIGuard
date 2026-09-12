@@ -103,6 +103,7 @@
 
 .status-grid{
     display: flex;
+    flex-flow: row wrap;
     gap: 5px;
 
     padding: 16px 0;
