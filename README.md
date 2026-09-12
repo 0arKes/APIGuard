@@ -754,7 +754,7 @@ http://localhost:8000
 <p align="justify">Os dados do PostgreSQL são armazenados em um volume Docker chamado <code>postgres_data</code>, permitindo que os dados do banco sejam preservados quando os containers forem recriados.</p>
 <h3 id="deploy">☁️ Deploy</h3>
 <p align="justify">O APIGuard também possui uma versão publicada no Render:</p>
-<p><a href="https://apiguard.onrender.com/">https://apiguard.onrender.com/</a></p>
+<p><a href="https://apiguard.onrender.com/dashboard">https://apiguard.onrender.com/</a></p>
 <p align="justify">A aplicação web está disponível publicamente, porém o ambiente atual utiliza o plano gratuito do Render, que não disponibiliza um Background Worker para executar o Celery de forma contínua. Por esse motivo, a aplicação publicada possui funcionamento parcial: a interface web e as funcionalidades que não dependem da execução contínua do Celery permanecem disponíveis, enquanto o monitoramento automático em segundo plano não funciona em produção nesse ambiente.</p>
 <p align="justify">Localmente, essa limitação não existe, pois o <code>docker-compose.yml</code> inicia separadamente o <code>celery-worker</code> e o <code>celery-beat</code>.</p>
 
